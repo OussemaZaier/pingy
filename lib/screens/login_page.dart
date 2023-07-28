@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:whatsapp_clone/notifier/dark_theme_provider.dart';
 import 'package:whatsapp_clone/screens/home_page.dart';
 import 'package:whatsapp_clone/utils/constants.dart';
+import 'package:provider/provider.dart' as provider;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -51,6 +53,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    //change theme
+    final themeChange = provider.Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Sign In')),
       body: ListView(
@@ -71,6 +75,13 @@ class _LoginPageState extends State<LoginPage> {
           ElevatedButton(
             onPressed: _isLoading ? null : _signIn,
             child: const Text('Login'),
+          ),
+          formSpacer,
+          Checkbox(
+            value: themeChange.darkTheme,
+            onChanged: (value) {
+              themeChange.darkTheme = value!;
+            },
           ),
         ],
       ),

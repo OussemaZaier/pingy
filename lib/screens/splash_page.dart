@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsapp_clone/notifier/dark_theme_provider.dart';
 import 'package:whatsapp_clone/screens/home_page.dart';
 import 'package:whatsapp_clone/screens/register_page.dart';
 import 'package:whatsapp_clone/utils/constants.dart';
@@ -11,6 +12,8 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  final darkThemeProvider = DarkThemeProvider();
+
   @override
   void initState() {
     super.initState();

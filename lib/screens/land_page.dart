@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
+import 'package:whatsapp_clone/notifier/dark_theme_provider.dart';
 
 class LandPage extends StatelessWidget {
   const LandPage({super.key});
@@ -13,15 +15,23 @@ class LandPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = SimpleAnimation('loop');
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return Scaffold(
       body: SafeArea(
           child: Column(
         children: [
           Stack(
             children: [
-              Container(
-                color: Theme.of(context).colorScheme.primary.withAlpha(200),
-                height: MediaQuery.of(context).size.height / 3,
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(50.0),
+                  bottomLeft: Radius.circular(50.0),
+                ),
+                child: Container(
+                  color: Theme.of(context).colorScheme.primary.withAlpha(150),
+                  height: MediaQuery.of(context).size.height / 2.5,
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 2,
@@ -36,43 +46,74 @@ class LandPage extends StatelessWidget {
               ),
             ],
           ),
-          Expanded(
-              child: Padding(
+          Padding(
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
                 Text(
-                  'data data data data data datadata data data data data data',
-                  style: Theme.of(context).textTheme.titleLarge,
+                  'Your Passport to Instant Connections.',
+                  style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center,
                 ),
+                const SizedBox(height: 10.0),
                 Text(
-                  'data data data data data data data data data data data data data data data data data datdata data data data data data',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  'With our innovative chat app, stay connected with friends and family like never before, sharing moments and creating memories in real-time.',
+                  style: Theme.of(context)
+                      .textTheme
+                      .labelLarge
+                      ?.copyWith(height: 1.3),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Get Started'),
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Theme.of(context).colorScheme.primary,
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20.0,
+                          horizontal: MediaQuery.of(context).size.width / 4,
+                        ),
+                        child: const Text('Get Started'),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: 'Already have an account? ',
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          TextSpan(
+                            text: 'Sign In',
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                RichText(
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Already have an account? ',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      TextSpan(
-                        text: 'Sign In',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                    ],
-                  ),
-                )
+                Checkbox(
+                  value: themeChange.darkTheme,
+                  onChanged: (value) {
+                    themeChange.darkTheme = value!;
+                  },
+                ),
               ],
             ),
-          ))
+          )
         ],
       )),
     );

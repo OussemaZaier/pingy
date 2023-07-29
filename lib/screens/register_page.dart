@@ -54,24 +54,21 @@ class _RegisterPageState extends State<RegisterPage> {
     final controller = SimpleAnimation('loop');
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: RiveAnimation.asset(
-              'assets/rive/main.riv',
-              controllers: [controller],
-              fit: BoxFit.fill,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: RiveAnimation.asset(
+                'assets/rive/main.riv',
+                controllers: [controller],
+                fit: BoxFit.fitHeight,
+              ),
             ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
+            Expanded(
+              flex: 2,
               child: Form(
                 key: _formKey,
-                child: ListView(
-                  padding: formPadding,
+                child: Column(
                   children: [
                     TextFormField(
                       controller: _emailController,
@@ -137,8 +134,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

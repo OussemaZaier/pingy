@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/notifier/dark_theme_provider.dart';
 import 'package:whatsapp_clone/screens/home_page.dart';
-import 'package:whatsapp_clone/screens/register_page.dart';
+import 'package:whatsapp_clone/screens/land_page.dart';
 import 'package:whatsapp_clone/utils/constants.dart';
 
 class SplashPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
     final session = supabase.auth.currentSession;
     if (session == null) {
       Navigator.of(context)
-          .pushAndRemoveUntil(RegisterPage.route(), (route) => false);
+          .pushAndRemoveUntil(LandPage.route(), (route) => false);
     } else {
       Navigator.of(context)
           .pushAndRemoveUntil(HomePage.route(), (route) => false);

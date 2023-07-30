@@ -1,21 +1,26 @@
-class Profile {
-  Profile({
+import 'package:whatsapp_clone/utils/serializable.dart';
+
+class UserModel extends Serializable {
+  String id;
+  String username;
+  DateTime createdAt;
+
+  UserModel({
     required this.id,
     required this.username,
     required this.createdAt,
   });
 
-  /// User ID of the profile
-  final String id;
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        id: json["id"],
+        username: json["username"],
+        createdAt: DateTime.parse(json["createdAt"]),
+      );
 
-  /// Username of the profile
-  final String username;
-
-  /// Date and time when the profile was created
-  final DateTime createdAt;
-
-  Profile.fromMap(Map<String, dynamic> map)
-      : id = map['id'],
-        username = map['username'],
-        createdAt = DateTime.parse(map['created_at']);
+  @override
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "username": username,
+        "createdAt": createdAt.toIso8601String(),
+      };
 }

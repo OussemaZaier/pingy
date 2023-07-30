@@ -8,6 +8,8 @@ import 'package:json_theme/json_theme.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
+import 'package:whatsapp_clone/view_model/user_view_model/login_view_model.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
@@ -56,10 +58,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) {
-        return themeChangeProvider;
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LoginViewModel()),
+        ChangeNotifierProvider(create: (_) => themeChangeProvider),
+      ],
       child: Consumer<DarkThemeProvider>(
         builder: (context, value, child) {
           return MaterialApp(

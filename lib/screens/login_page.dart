@@ -4,6 +4,7 @@ import 'package:whatsapp_clone/notifier/dark_theme_provider.dart';
 import 'package:whatsapp_clone/screens/home_page.dart';
 import 'package:whatsapp_clone/utils/constants.dart';
 import 'package:provider/provider.dart' as provider;
+import 'package:whatsapp_clone/view_model/user_view_model/login_view_model.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -53,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    LoginViewModel loginViewModel = context.watch<LoginViewModel>();
     //change theme
     final themeChange = provider.Provider.of<DarkThemeProvider>(context);
     return Scaffold(
@@ -73,7 +75,17 @@ class _LoginPageState extends State<LoginPage> {
           ),
           formSpacer,
           ElevatedButton(
-            onPressed: _isLoading ? null : _signIn,
+            onPressed: _isLoading
+                ? null
+                : () {
+                    loginViewModel.login(
+                        _emailController.text, _passwordController.text);
+                    if (loginViewModel.loading) {
+                      print('loading');
+                    }
+                    print(loginViewModel.error);
+                    print(loginViewModel.res);
+                  },
             child: const Text('Login'),
           ),
           formSpacer,

@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final Stream<List<Message>> _messagesStream;
-  final Map<String, Profile> _profileCache = {};
+  final Map<String, UserModel> _profileCache = {};
 
   @override
   void initState() {
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
     }
     final data =
         await supabase.from('profiles').select().eq('id', profileId).single();
-    final profile = Profile.fromMap(data);
+    final profile = UserModel.fromJson(data);
     setState(() {
       _profileCache[profileId] = profile;
     });
@@ -179,7 +179,7 @@ class _ChatBubble extends StatelessWidget {
   }) : super(key: key);
 
   final Message message;
-  final Profile? profile;
+  final UserModel? profile;
 
   @override
   Widget build(BuildContext context) {

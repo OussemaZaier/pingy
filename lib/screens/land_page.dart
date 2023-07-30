@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rive/rive.dart';
 import 'package:whatsapp_clone/notifier/dark_theme_provider.dart';
+import 'package:whatsapp_clone/screens/login_page.dart';
 
 class LandPage extends StatelessWidget {
   const LandPage({super.key});
@@ -93,12 +95,18 @@ class LandPage extends StatelessWidget {
                       text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
+                            style: Theme.of(context).textTheme.labelMedium,
                             text: 'Already have an account? ',
-                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                           TextSpan(
+                            style: Theme.of(context).textTheme.labelLarge,
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.of(context).push(
+                                  LoginPage.route(),
+                                );
+                              },
                             text: 'Sign In',
-                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],
                       ),
